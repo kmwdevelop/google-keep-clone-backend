@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
 // HTTP GET: 특정 id의 노트를 반환 (단일))
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  const note = store.notes.get(id);
+  const note = store.notes.get(Number(id));
 
   if (note === undefined) {
     res.status(400).json({ msg: `id: ${id} 존재하지 않는 노트입니다.` });
@@ -61,7 +61,7 @@ router.put("/:id", (res, req) => {
 
 // HTTP DELETE: 노트 삭제
 router.delete("/:id", (req, res) => {
-  const { id } = req.params;
+  const { id } = Number(req.params);
 
   if (store.notes.has(id) === false) {
     res.status(404).json({ msg: `id: ${id} 존재하지 않는 노트입니다.` });
